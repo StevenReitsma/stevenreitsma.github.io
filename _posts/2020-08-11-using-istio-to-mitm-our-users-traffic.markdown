@@ -43,6 +43,8 @@ So we need to have some way of **transparently injecting the client credentials 
 We're already using Istio in our cluster, so using an Istio egress gateway to accomplish our goal is a logical choice.
 There are quite some tutorials on how to use Istio egress gateways for outbound traffic, but none of them show how to both **modify a request** and **keep the traffic encrypted in transit** at the same time.
 
+![Diagram of Istio configuration flow](../images/istio-mitm-diagram.png)
+
 The first step is to deploy the egress gateway.
 You can do this by adding the following to your `IstioOperator` resource:
 
