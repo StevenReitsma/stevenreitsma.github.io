@@ -37,7 +37,7 @@ sass:
 
 # SEO
 title: Steven Reitsma
-tagline:
+tagline: Blog
 description: Steven Reitsma's personal blog about data engineering, infrastructure and machine learning
 url: https://stevenreitsma.github.io
 author: StevenReitsma
