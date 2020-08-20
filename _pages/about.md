@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+description: Hi, my name is Steven Reitsma. I'm active in the data engineering, machine learning and MLOps fields.
 permalink: /about/
 image: halfdome.jpg
 ---
