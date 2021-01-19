@@ -195,10 +195,6 @@ spec:
             - person_a@company.com
             - person_b@company.com
             - service_account_a@company.com
-    - to:
-        - operation:
-            ports:
-              - "443"
 ```
 
 So by enabling Istio support in Seldon, we have automatic encryption of traffic within the cluster, enforce authentication of clients for all models, and give data scientists the ability to add authorizations independently.
