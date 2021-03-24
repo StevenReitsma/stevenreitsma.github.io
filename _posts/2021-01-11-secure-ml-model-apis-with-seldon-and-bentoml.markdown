@@ -159,7 +159,7 @@ kind: RequestAuthentication
 apiVersion: security.istio.io/v1beta1
 metadata:
   name: enforce-jwt-for-apis
-  namespace: api
+  namespace: example-model
 spec:
   jwtRules:
     - audiences:
@@ -171,7 +171,7 @@ spec:
       jwksUri: "https://idp.local/auth/realms/ML/.well-known/jwks.json"
 ```
 
-Now, all requests that pass through the `api` namespace (where our ingress gateway is located) are required to have a valid JWT.
+Now, all requests that pass through the `example-model` namespace (where our model is located) are required to have a valid JWT.
 Without a valid JWT, the request is rejected with a `401` HTTP error.
 
 It is the responsibility of the client application to go through the proper OIDC flow to obtain a token.
