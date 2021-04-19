@@ -1,0 +1,122 @@
+.project {
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  .project__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .project__image {
+    width: 50%;
+    display: block;
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &:after {
+      content: "";
+      display: table;
+      width: 100%;
+      padding-bottom: 70%;
+    }
+  }
+
+  .project__content {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    z-index: 1;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+
+    .project__tag {
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .project__title {
+      margin-bottom: 0px;
+      font-size: 26px;
+      
+      a {
+        color: $dark;
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+
+    .project__excerpt {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    .project__meta {
+      font-size: 12px;
+      line-height: 18px;
+      text-transform: uppercase;
+      color: $gray;
+    }
+
+    .project__footer {
+      display: flex;
+      align-items: center;
+
+      .read-more {
+        margin-left: auto;
+        padding-bottom: 5px;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-bottom: 1px solid transparent;
+        color: $gray;
+        &:hover {
+          color: $dark;
+          border-color: $brand-color;
+        }
+      }
+    }
+  }
+
+  .project-without-image {
+    width: 100%;
+    margin-left: auto;
+  }
+
+  @media only screen and (max-width: $tablet) {
+    .project__wrapper {
+      flex-direction: column;
+    }
+
+    .project__image {
+      width: 100%;
+    }
+
+    .project__content {
+      width: 90%;
+      padding: 20px;
+      margin: -10% 0 0 0;
+    }
+
+    .project-without-image {
+      width: 90%;
+      margin: 0;
+    }
+  }
+
+  @media only screen and (max-width: $mobile) {
+    .project__content {
+
+      .project__title {
+        font-size: 27px;
+      }
+    }
+  }
+}

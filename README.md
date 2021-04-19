@@ -1,3 +1,3 @@
-# stevenreitsma.github.io
+# reitsma.io
 
-[Live site](https://stevenreitsma.github.io)
+[Live site](https://reitsma.io)

@@ -1,5 +1,5 @@
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://stevenreitsma.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://reitsma.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 
 # Build settings
@@ -25,6 +25,10 @@ defaults:
 include:
   - _pages
 
+collections:
+  projects:
+    output: true
+
 
 # Tags
 tag_page_dir:         tag
@@ -38,7 +42,7 @@ sass:
 # SEO
 title: Steven Reitsma
 description: Blog
-url: https://stevenreitsma.github.io
+url: https://reitsma.io
 author: StevenReitsma
 social:
   name: Steven Reitsma
