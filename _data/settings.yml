@@ -12,9 +12,9 @@ author:
   image: profile.jpg
   say-hello: Hi, I’m <strong>Steven Reitsma</strong>
   bio: |
-    MLOps Engineer | Data Engineer | ML Engineer
+    <strong>Freelance</strong> MLOps Engineer | Data Engineer | ML Engineer
     <br>
-    Currently active at <a href="https://politie.nl/en">Politie</a> and <a href="https://bigdatarepublic.nl">BigData Republic</a>
+    Currently active at <a href="https://politie.nl/en">Politie</a>
 
 
 #-------------------------------
