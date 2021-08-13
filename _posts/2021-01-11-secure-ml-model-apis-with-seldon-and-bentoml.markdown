@@ -2,7 +2,7 @@
 layout: post
 title:  Secure machine learning APIs with Seldon and BentoML
 date:   2021-01-11 15:00:00 +0200
-image:  secure-ml-seldon.jpg
+image:  images/secure-ml-seldon.jpg
 tags:   ML Istio Security
 seo:
   type: BlogPosting
