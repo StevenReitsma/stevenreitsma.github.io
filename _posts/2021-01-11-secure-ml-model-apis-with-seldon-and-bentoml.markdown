@@ -17,7 +17,7 @@ In this blog I'll touch upon the security advantages of using these frameworks.
 
 The last couple of months, my team has worked on deploying (and contributing to!) [Kubeflow](https://www.kubeflow.org/) to make sure our data scientists can securely process data on an air-gapped cluster.
 Before we built this platform, data scientists had to download data to their local (albeit encrypted) laptop.
-We are now successfully running production with our platform and serve over 100 of our organization's data scientists.
+We are now successfully running production with our platform and serve over 400 of our organization's data scientists.
 
 To take things to the next level, my team is now working on a solution for securely serving machine learning models across the organization.
 Specifically we productionize models using REST and gRPC APIs, integrating them with business software and existing processes.
