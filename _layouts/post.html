@@ -19,6 +19,7 @@ layout: default
 
           {% if page.tags.size >= 1 %}
           <div class="post__tags">
+            <span style="padding-left:6px;">&bullet;</span>
             {% for tag in page.tags %}
               <a class="post__tags-tag">{{ tag }}</a>
             {% endfor %}

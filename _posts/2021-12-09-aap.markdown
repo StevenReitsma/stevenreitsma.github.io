@@ -14,7 +14,9 @@ seo:
 
 Begin 2020 is de politie begonnen met het ontwikkelen van een nieuw machine learning platform ten behoeve van data scientists en analisten binnen de organisatie. In oktober 2020 is dit intern gelanceerd als **AAP**: het Advanced Analytics Platform. In de tijd daarna hebben we ontzettend veel verbeteringen aangebracht en hebben we meegedaan aan de Dutch BI and AI Awards. [We zijn onderdeel van de drie finalisten](https://www.emerce.nl/wire/dutch-bi-data-science-award-2021-politie-pon-spendlab-gaan-door-finale) en het is dus een goed moment om via deze technische blog een kijkje in de keuken van AAP te geven.
 
-<iframe style="width: 100%; height: 540px;" src="https://www.youtube.com/embed/O5cCYXE1ufc?vq=hd1080p;" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+<div style="position:relative; width: 100%;">
+  <iframe src="https://www.youtube.com/embed/O5cCYXE1ufc?vq=hd1080p;" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+</div>
 <br />
 
 AAP is een platform voor het ontwikkelen en productionaliseren van machine learning applicaties die de politieorganisatie ondersteunen de veiligheid van het land te waarborgen.
