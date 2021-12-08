@@ -1,0 +1,170 @@
+---
+layout: post
+title:  Het Advanced Analytics Platform van de Politie
+date:   2021-12-08 13:00:00 +0100
+image:  images/aap.png
+tags:
+  - Kubernetes
+  - Platform
+  - Tech Overview
+description: 
+seo:
+  type: BlogPosting
+---
+
+Begin 2020 is de politie begonnen met het ontwikkelen van een nieuw machine learning platform ten behoeve van data scientists en analisten binnen de organisatie. In oktober 2020 is dit intern gelanceerd als **AAP**: het Advanced Analytics Platform. In de tijd daarna hebben we ontzettend veel verbeteringen aangebracht en hebben we meegedaan aan de Dutch BI and AI Awards. [We zijn onderdeel van de drie finalisten](https://www.emerce.nl/wire/dutch-bi-data-science-award-2021-politie-pon-spendlab-gaan-door-finale) en het is dus een goed moment om via deze technische blog een kijkje in de keuken van AAP te geven.
+
+<iframe style="width: 100%; height: 540px;" src="https://www.youtube.com/embed/O5cCYXE1ufc?vq=hd1080p;" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+<br />
+
+AAP is een platform voor het ontwikkelen en productionaliseren van machine learning applicaties die de politieorganisatie ondersteunen de veiligheid van het land te waarborgen.
+De data scientists en analisten van de politie hebben behoefte aan een platform waar ze makkelijk, snel en veilig data kunnen analyseren en modellen kunnen trainen – natuurlijk met alle privacywetten in acht genomen.
+Daarnaast moeten modellen makkelijk in productie worden gezet zodat ze door de rest van de organisatie kunnen worden gebruikt, in de vorm van dashboards of API’s.
+AAP heeft deze niche gevuld en automatiseert infra- en ops-taken.
+Zo kunnen modellen met één druk op de knop highly-available gehost worden en is het gebruik van GPU training jobs eenvoudiger gemaakt.
+We bouwen AAP met een team van zes fte in een combinatie van vaste en ingehuurde krachten.
+
+AAP is geen dataplatform maar een compute-platform.
+AAP werkt samen met verschillende dataplatformen binnen de politie, maar is zelf nooit de bron van data.
+Zo houden wij de ontwikkeling van het platform gefocust.
+Je kunt het qua functionaliteit het beste vergelijken met een AWS Sagemaker of Google Vertex AI, maar dan gehost in een private cloud en toegespitst op de werkzaamheden van de politie.
+
+Inmiddels maken meer dan 450 collega’s gebruik van AAP.
+Verspreid over 1000 CPU’s en 5TB aan RAM draaien er honderden Jupyter en VS Code servers.
+Er worden dagelijks vele GPU training jobs gedraaid en we hosten al tientallen applicaties in productie.
+Het platform is binnen de politie een groot succes en bespaart data scientists, analisten en softwareontwikkelaars ontzettend veel tijd.
+
+In deze blog geven we een technisch overzicht van AAP, laten we zien hoe de product lifecycle van data scientists bij de politie eruit ziet en geven we een kijkje in de nieuwste functionaliteit die we aan het platform hebben toegevoegd: de **Aapp Store**.
+
+## Technisch overzicht
+
+Omdat het voor de politie ontzettend belangrijk is onafhankelijk te zijn maken we gebruik van onze eigen private cloud op basis van Openstack.
+Dit is een stuk uitdagender dan het ontwikkelen van een platform op een public cloud zoals AWS of Azure.
+We kunnen de hardware, storage en networking niet wegabstraheren en moeten de hele stack zelf ontwikkelen en beheren.
+Gelukkig is er een apart team dat de hardware en Openstack beheert.
+Wij focussen ons dus op alles wat daarbovenop komt.
+Via Terraform maken we VMs, virtual networks, security groups en volumes aan op Openstack en daar provisionen wij ons platform op.
+
+Op de Openstack VMs deployen we Kubernetes met [Kubespray](https://github.com/kubernetes-sigs/kubespray) (helaas, geen [kops](https://github.com/kubernetes/kops) 👮‍♂️👮‍♀️).
+Op Kubernetes deployen we vervolgens met [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) en [kustomize](https://kustomize.io/) verschillende applicaties via de GitOps-methodiek.
+Uiteraard wordt alles highly-available gehost en hebben we een uitgebreide CI-pipeline om fouten te voorkomen en de stabiliteit van het platform hoog te houden.
+De backbone van het platform is [Kubeflow](https://github.com/kubeflow/kubeflow), wat gebruikers in staat stelt zelf een afgeschermde Kubernetes namespace aan te maken en makkelijk [Jupyter](https://github.com/jupyterlab/jupyterlab) en [VS Code](https://github.com/cdr/code-server) notebooks te starten.
+We hebben veel gecustomized aan Kubeflow, en zelfs nieuwe functionaliteiten toegevoegd, zoals het aan kunnen maken van afgeschermde, gedeelde projecten om makkelijk samen te kunnen werken met collega's.
+
+<p align="center">
+  <img src="../images/kubeflow.png" alt="Kubeflow" />
+  <em>Een screenshot van onze gecustomizede Kubeflow instantie.</em>
+</p>
+
+Multi-tenancy is een van de belangrijkste eisen aan het platform.
+Elke gebruiker moet zijn eigen afschermde deel hebben binnen het platform, waar niemand anders bij kan.
+Dit doen we om de privacy en security te kunnen bewaken.
+Door Kubeflow te gebruiken (in combinatie met zelfgebrouwde [OPA policies](https://github.com/open-policy-agent/gatekeeper)) kunnen we dit op de juiste manier afdwingen.
+Daarnaast wordt alles wat een gebruiker doet gekoppeld aan zijn identiteit via OIDC en het officiële Politie-AD en wordt alle activiteit opgeslagen in [Loki](https://github.com/grafana/loki) via een auditing service.
+
+<p align="center">
+  <img src="../images/auditing.png" alt="Auditing" />
+  <em>Een geanonimiseerd overzicht van HTTP-request audit logs vanuit Grafana.</em>
+</p>
+
+Voor intern verkeer tussen Kubernetes pods gebruiken we [Istio](https://istio.io/) om al het verkeer te encrypten en te authenticeren door middel van mTLS.
+Zo kunnen aanvallers nooit verkeer van andere pods onderscheppen.
+Ook wordt Istio gebruikt voor audit logging van alle HTTP-requests en voor authenticatie van gebruikers via [OIDC](https://istio.io/latest/docs/tasks/security/authorization/authz-custom/).
+Voor secret management gebruiken we [Vault](https://www.vaultproject.io/).
+Ook PKI en data-at-rest encryptie van `etcd` en [MinIO](https://github.com/minio/minio) wordt via Vault geregeld.
+
+<p align="center">
+  <img src="../images/aap_overview.png" alt="Overview van AAP." />
+  <em>Een (zeer) gesimplificeerd overzicht van AAP.</em>
+</p>
+
+## Voorbeeld productontwikkeling
+
+Om wat meer inzichtelijk te maken wat AAP precies aan waarde biedt, nemen we je mee in een voorbeeld van de ontwikkeling van een nieuw product: [Monocam](https://www.politie.nl/nieuws/2021/juli/1/00-monocam-ingezet-tegen-afleiding-in-verkeer.html).
+Monocam detecteert automatisch bellende bestuurders in het verkeer door middel van een camera boven de weg.
+
+<p align="center">
+  <img src="../images/monocam.jpg" alt="Monocam." />
+  <em>Monocam.</em>
+</p>
+
+De eerste stap in de ontwikkeling van een nieuw data science product is het verzamelen en verkennen van data.
+Dit kan gemakkelijk op AAP door het aanmaken van een Kubeflow notebook (RStudio, Jupyter of Visual Studio Code).
+Via de notebook kan de data scientist data binnenhalen met zijn persoonlijke autorisaties en deze wegschrijven naar een (alleen voor hem toegankelijke) S3-bucket.
+Vanuit deze bucket kan de data geanalyseerd worden en kunnen er modellen op worden getraind.
+Dat kan zelfs met behulp van GPUs, als er gebruik wordt gemaakt van geschikte ML frameworks zoals PyTorch of TensorFlow.
+Voor Monocam is er met TensorFlow een neural network getraind op meerdere GPUs om snel prototypes op te kunnen leveren.
+
+Na het valideren en testen van het model kan de data scientist op AAP een `Dockerfile` maken en deze bouwen en pushen naar de container registry van AAP (op basis van [Harbor](https://github.com/goharbor/harbor)).
+Om veilig Docker images te kunnen bouwen stellen we [Kaniko](https://github.com/GoogleContainerTools/kaniko) ter beschikking.
+Hiermee kunnen gebruikers op Kubernetes Docker images bouwen zonder dat ze een (onveilige) Docker daemon nodig hebben.
+
+Om een product in productie te brengen kan een *inference project* worden aangemaakt.
+Het aanmaken van een inference project geeft de opgegeven gebruikers toegang tot een S3 bucket, een eigen Harbor project, en natuurlijk een eigen Kubernetes namespace.
+Alle onderdelen zijn afgeschermd en kunnen slechts worden benaderd door de aangewezen ontwikkelaars en beheerders.
+
+In de inference namespace kan de gebouwde Docker image als Kubernetes pod worden gestart via [Seldon](https://github.com/SeldonIO/seldon-core).
+Belangrijk is ook hier weer dat we veel aandacht hebben besteed aan de autorisaties en auditing.
+Zie ook [deze blogpost](secure-ml-model-apis-with-seldon-and-bentoml) voor meer informatie over hoe we veilig machine learning APIs hosten met Istio, Seldon en BentoML.
+
+<p align="center">
+  <img src="../images/apicall.png" alt="API call." />
+  <em>Een geauthenticeerde REST-call naar een machine learning API.</em>
+</p>
+
+Uiteindelijk kan er een REST-endpoint worden gehost waar geautoriseerde gebruikers op basis van input een voorspelling kunnen krijgen van een machine learning model.
+De data scientist hoeft zelf niets te doen aan authenticatie, encryptie of auditing – dit wordt allemaal centraal vanuit AAP geregeld.
+
+## Aapp Store
+
+Om gebruikers nog verder te ontzorgen in het draaien van applicaties op AAP hebben we de **Aapp Store** ontwikkeld.
+Hiermee kunnen gebruikers applicaties *managed* laten draaien op het platform.
+Denk bijvoorbeeld aan een Postgres database, [MLflow](https://github.com/mlflow/mlflow)-instantie, of zelfs het hosten van een machine learning API zoals hierboven beschreven.
+
+<p align="center">
+  <img src="../images/aappstore.png" alt="Aapp Store." />
+  <em>Het aanmaken van een nieuwe applicatie in de Aapp Store.</em>
+</p>
+
+De ontwikkelaars van Monocam kunnen bijvoorbeeld met een druk op de knop een MLflow-instantie opstarten waarmee ze hun modelexperimenten inzichtelijk kunnen maken.
+De gebruiker hoeft verder niets te doen aan het toevoegen van authenticatie of het up-to-date houden van de applicatie.
+Ook hier levert dit dus een stukje veiligheid op, omdat normaliter in een vroeg stadium van een project nog geen rekening wordt gehouden met authenticatie en andere security-aspecten.
+
+Onder de motorkap maakt de Aapp Store een ArgoCD `Application`-resource aan die een [Helm](https://helm.sh/) chart deployt.
+Omdat alle Aapp Store applicaties dus via ArgoCD worden gemanaged, kunnen wij als platformbeheerders in één klap alle draaiende applicaties upgraden naar een nieuwe versie via rolling updates.
+Geavanceerdere gebruikers kunnen zelf de Helm charts pakken en deze customizen, of zelfs een CI/CD pipeline mee opzetten.
+
+<p align="center">
+  <img src="../images/application_layers.png" alt="Lagen in Aapp Store." />
+  <em>De verschillende lagen van abstractie in de Aapp Store.</em>
+</p>
+
+## Documentatie
+
+Met meer dan 450 gebruikers en een DevOps-team van slechts zes personen is er geen beginnen aan om elke nieuwe gebruiker aan de hand mee te nemen.
+Daarom besteden wij ontzettend veel tijd aan het schrijven van uitgebreide documentatie voor onze gebruikers.
+Voor alle mogelijkheden van het platform hebben we tutorials geschreven en we maken ook regelmatig voorbeeldrepositories die gebruikers kunnen clonen als beginpunt.
+Zo kunnen ze snel van start en het bespaart ons een hoop supportvragen!
+
+<p align="center">
+  <img src="../images/docs.png" alt="Documentatie" />
+  <em>Een screenshot van de AAP-documentatie.</em>
+</p>
+
+## Recap
+
+AAP is een platform waar analisten en data scientists terecht kunnen voor de hele lifecycle van een data science product: van dataverkenning tot het in productie zetten van een model in de vorm van een API of dashboard.
+Hierbij zijn gebruiksgemak, privacy en security de hoofdpilaren.
+
+AAP is ontzettend succesvol en levert de Politie veel waarde op.
+De komende tijd gaan we ons focussen op nóg meer functionaliteit en staat stabiliteit en disaster recovery centraal.
+
+Vind jij het tof om meer te weten over hoe we bepaalde dingen bij de politie aanpakken? Check ook onze andere blogs:
+- [Using Istio to MITM our users' traffic](using-istio-to-mitm-our-users-traffic)
+- [Secure ML model APIs with Seldon and BentoML](secure-ml-model-apis-with-seldon-and-bentoml)
+
+We zijn altijd geïnteresseerd in een gesprek met experts dus voel je vrij contact op te nemen bij vragen en feedback!
+
+<p align="center">
+  <img src="../images/aap.png" alt="AAP logo." />
+</p>
