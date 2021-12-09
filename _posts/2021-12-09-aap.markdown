@@ -7,7 +7,7 @@ tags:
   - Kubernetes
   - Platform
   - Tech Overview
-description: 
+description: AAP is het Advanced Analytics Platform van de Politie en is volledig gebaseerd op open-source technologie zoals Kubernetes en Kubeflow.
 seo:
   type: BlogPosting
 ---
