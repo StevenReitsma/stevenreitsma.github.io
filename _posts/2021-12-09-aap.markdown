@@ -31,8 +31,8 @@ AAP werkt samen met verschillende dataplatformen binnen de politie, maar is zelf
 Zo houden wij de ontwikkeling van het platform gefocust.
 Je kunt het qua functionaliteit het beste vergelijken met een AWS Sagemaker of Google Vertex AI, maar dan gehost in een private cloud en toegespitst op de werkzaamheden van de politie.
 
-Inmiddels maken meer dan 450 collega’s gebruik van AAP.
-Verspreid over 1000 CPU’s en 5TB aan RAM draaien er honderden Jupyter en VS Code servers.
+Inmiddels maken meer dan 600 collega’s gebruik van AAP.
+Verspreid over 1500 CPU’s en 6TB aan RAM draaien er honderden Jupyter en VS Code servers.
 Er worden dagelijks vele GPU training jobs gedraaid en we hosten al tientallen applicaties in productie.
 Het platform is binnen de politie een groot succes en bespaart data scientists, analisten en softwareontwikkelaars ontzettend veel tijd.
 
