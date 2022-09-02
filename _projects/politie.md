@@ -3,7 +3,7 @@ name:  Politie
 function: Platform Tech Lead
 image:  politie.png
 date_from: 2019
-date_to: present
+date_to: 2022
 tech: Kubernetes, MinIO, lots of Go, Kubeflow, Istio, Vault, Openstack, BentoML, Seldon, DVC, CML, Keycloak, Terraform, Public-key infrastructure, ArgoCD
 type: main
 ---
