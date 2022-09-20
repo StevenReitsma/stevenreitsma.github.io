@@ -10,8 +10,8 @@ order: 2
 {% assign projects = site.projects | where: "type","side" | sort:"date_from" | reverse %}
 <div class="container">
 	{% for project in projects %}
-	<div class="row">
-		<div class="col">
+	<div class="row" style="width: 100%">
+		<div class="col" style="width: 100%">
 			{% include project-content.html %}
 		</div>
 	</div>
@@ -23,8 +23,8 @@ order: 2
 {% assign projects = site.projects | where: "type","main" | sort:"date_from" | reverse %}
 <div class="container">
 	{% for project in projects %}
-		<div class="row">
-			<div class="col">
+		<div class="row" style="width: 100%">
+			<div class="col" style="width: 100%">
 				{% include project-content.html %}
 			</div>
 		</div>
