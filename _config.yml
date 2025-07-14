@@ -18,6 +18,12 @@ paginate_path: "/page/:num"
 # Pages Path
 defaults:
   - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Steven Reitsma"
+  - scope:
       path: '_pages'
     values:
       permalink: /:basename:output_ext
@@ -43,7 +49,8 @@ sass:
 title: Steven Reitsma
 description: Blog
 url: https://reitsma.io
-author: StevenReitsma
+author: Steven Reitsma
+logo: logo_square.png
 social:
   name: Steven Reitsma
   links:

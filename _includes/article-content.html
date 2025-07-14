@@ -33,6 +33,14 @@
           <div class="article__footer">
             <div class="article__meta">
               <span class="article__date"><time datetime="{{ post.date | date_to_xmlschema }}">{% assign date_format = site.minima.date_format | default: "%B %-d, %Y" %}{{ post.date | date: date_format }}</time></span>
+              {% assign words = post.content | number_of_words %}
+              {% if words < 180 %}
+                {% assign reading_time = "1 min" %}
+              {% else %}
+                {% assign reading_time_num = words | divided_by: 180 %}
+                {% assign reading_time = reading_time_num | append: " min" %}
+              {% endif %}
+              <span class="article__reading-time">&bullet; {{ reading_time }} read</span>
             </div>
 
             <a href="{{post.url | prepend: site.baseurl}}" class="read-more">Keep Reading <i class="ion ion-ios-arrow-forward"></i></a>
