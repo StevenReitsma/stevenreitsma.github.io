@@ -31,6 +31,9 @@ defaults:
 include:
   - _pages
 
+exclude:
+  - CLAUDE.md
+
 collections:
   projects:
     output: false
