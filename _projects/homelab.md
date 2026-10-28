@@ -2,7 +2,7 @@
 name:  Homelab
 image: homelab.svg
 type:  side
-date_from: 2026
+date_from: 2017
 date_to: present
 tech: Podman, Authelia, SOPS, Restic, SnapRAID, btrfs, Renovate, ntfy, LUKS, ESPHome, WireGuard, CrowdSec, Ansible
 ---
