@@ -2,7 +2,7 @@
 layout: post
 title:  Brewing beer with LoRaWAN
 date:   2021-08-11 20:00:00 +0200
-image:  images/beer.jpg
+image:  /images/beer.jpg
 tags:   IoT Embedded LoRa
 description: During the corona pandemic I took up brewing beer as a new hobby. I wanted to send metrics from the fermentation fridge in my internetless basement to my apartment. I solved this using LoRaWAN, InfluxDB and Grafana.
 seo:

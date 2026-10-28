@@ -12,7 +12,7 @@ layout: default
 
 	{% if page.image %}
 	<div class="page__head">
-		<div class="page-image" style="background-image: url({{site.baseurl}}/images/{{page.image}})"></div>
+		<div class="page-image" style="background-image: url({{ page.image | relative_url }})"></div>
 	</div>
 	{% endif %}
 </div>
@@ -21,7 +21,7 @@ layout: default
 <div class="container">
 	<div class="row">
 		<!-- begin page -->
-		<article class="page col col-12 col-t-14 col-m-16">
+		<article class="page col col-12">
 			<div class="page__content">
 				{{ content }}
 			</div>

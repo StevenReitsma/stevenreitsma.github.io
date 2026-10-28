@@ -4,5 +4,4 @@ _site
 .jekyll-cache
 .bundle
 *.DS_Store
-Gemfile.lock
 .idea

@@ -24,7 +24,7 @@ JEKYLL_ENV=production bundle exec jekyll build
 ```
 
 ### GitHub Pages Deployment
-The site is automatically deployed to GitHub Pages when changes are pushed to the master branch. No manual deployment commands are needed.
+Pushes to master trigger `.github/workflows/pages.yml`, which builds with the Ruby version in `.ruby-version` and the gems in `Gemfile.lock` (Jekyll 4) and deploys to GitHub Pages. A local `bundle exec jekyll build` therefore matches production; keep `Gemfile.lock` committed.
 
 ## Architecture and Structure
 
@@ -48,16 +48,16 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
 - Blog with pagination (5 posts per page)
 - Project portfolio with custom collection
 - SEO optimization with jekyll-seo-tag
-- Google Analytics integration
 - Responsive design with custom Sass architecture
 - Search functionality
-- Tag-based post categorization
+- Tags shown as labels on posts (no tag pages)
 
 ### Content Types
 - **Blog Posts**: Technical articles about Kubernetes, ML, security, etc.
 - **Projects**: Professional work and personal projects with descriptions
 - **About Page**: Personal information and bio
-- **Tags**: Organized by technology (Kubernetes, Istio, Security, etc.)
+- **Tags**: Labels by technology (Kubernetes, Istio, Security, etc.)
+- **Icons**: Ionicons web components (`<ion-icon name="...">`), loaded from unpkg in `_includes/head.html`
 
 ### Styling Architecture
 Sass files are organized in a structured approach:

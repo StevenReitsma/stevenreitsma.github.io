@@ -46,7 +46,7 @@ layout: default
   {% assign no-image = nil %}
   {% if page.image %}
     <div class="post__head">
-      <div class="post-image" style="background-image: url({{site.baseurl}}/{{page.image}})"></div>
+      <div class="post-image" style="background-image: url({{ page.image | relative_url }})"></div>
     </div>
   {% else %}
     {% assign no-image = 'post-no-image' %}
@@ -70,12 +70,12 @@ layout: default
           <li class="share__item">
             <a class="share__twitter" href="https://x.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ site.url }}{{ site.baseurl }}{{ page.url }}"
               onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-              title="Share on X" rel="nofollow"><i class="ion ion-logo-twitter"></i></a>
+              title="Share on X" rel="nofollow"><ion-icon name="logo-x"></ion-icon></a>
           </li>
 
           <li class="share__item">
             <a class="share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ site.baseurl }}{{ page.url }}&title={{ page.title | uri_escape }}&summary={{ page.description | uri_escape }}&source={{ site.title | uri_escape }}"
-              onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" rel="nofollow"><i class="ion ion-logo-linkedin"></i></a>
+              onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" rel="nofollow"><ion-icon name="logo-linkedin"></ion-icon></a>
           </li>
         </ul>
       </div>
@@ -88,9 +88,9 @@ layout: default
   <div class="post__navigation">
     {% if page.previous.url %}
     <div class="prev">
-      <a class="post__nav__image" href="{{ site.baseurl }}{{page.previous.url}}" style="background-image: url({{site.baseurl}}/{{page.previous.image}})"></a>
+      <a class="post__nav__image" href="{{ site.baseurl }}{{page.previous.url}}" style="background-image: url({{ page.previous.image | relative_url }})"></a>
       <h2 class="post__nav__title">
-        <i class="ion ion-md-arrow-back"></i>
+        <ion-icon name="arrow-back"></ion-icon>
         <a href="{{ site.baseurl }}{{page.previous.url}}">{{page.previous.title}}</a>
       </h2>
       <p class="prev__excerpt">
@@ -105,11 +105,11 @@ layout: default
 
     {% if page.next.url %}
     <div class="next">
-      <a class="post__nav__image" href="{{ site.baseurl }}{{page.next.url}}" style="background-image: url({{site.baseurl}}/{{page.next.image}})">
+      <a class="post__nav__image" href="{{ site.baseurl }}{{page.next.url}}" style="background-image: url({{ page.next.image | relative_url }})">
       </a>
       <h2 class="post__nav__title">
         <a href="{{ site.baseurl }}{{page.next.url}}">{{page.next.title}}</a>
-        <i class="ion ion-md-arrow-forward"></i>
+        <ion-icon name="arrow-forward"></ion-icon>
       </h2>
       <p class="next__excerpt">
         {% if page.next.description %}
@@ -122,5 +122,4 @@ layout: default
     {% endif %}
   </div>
 
-  {% if site.data.settings.disqus-identifier %} {% include disqus-comments.html %} {% endif %}
   </div>

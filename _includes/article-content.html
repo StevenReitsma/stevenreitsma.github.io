@@ -6,7 +6,7 @@
     <div class="article__wrapper">
 
         {% if post.image %}
-          <a href="{{post.url | prepend: site.baseurl}}" class="article__image" style="background-image: url({{site.baseurl}}/{{post.image}})">
+          <a href="{{post.url | prepend: site.baseurl}}" class="article__image" style="background-image: url({{ post.image | relative_url }})">
           </a>
         {% else %}
           {% assign without-image = 'article-without-image' %}
@@ -43,7 +43,7 @@
               <span class="article__reading-time">&bullet; {{ reading_time }} read</span>
             </div>
 
-            <a href="{{post.url | prepend: site.baseurl}}" class="read-more">Keep Reading <i class="ion ion-ios-arrow-forward"></i></a>
+            <a href="{{post.url | prepend: site.baseurl}}" class="read-more">Keep Reading <ion-icon name="chevron-forward"></ion-icon></a>
           </div>
 
         </div>

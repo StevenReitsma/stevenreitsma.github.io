@@ -1,3 +1,7 @@
+@use 'sass:color';
+@use '../0-settings/variables' as *;
+@use '../0-settings/mixins' as *;
+
 *, *::after, *::before {
   box-sizing: border-box;
 }
@@ -111,10 +115,10 @@ a {
     color: $link-color;
     transition: $global-transition;
     &:hover {
-      color: darken($link-color, 10%);
+      color: color.adjust($link-color, $lightness: -10%);
     }
     &:active {
-      color: darken($link-color, 20%);
+      color: color.adjust($link-color, $lightness: -20%);
     }
 }
 
@@ -124,4 +128,7 @@ hr {
   margin: 40px 0;
   border: 0;
   background: $light-gray;
+}
+ion-icon {
+  vertical-align: -0.125em;
 }

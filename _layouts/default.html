@@ -5,10 +5,6 @@
 
 <body>
 
-  {% if site.data.settings.google-analytics %}
-  {% include google-analytics.html %}
-  {% endif %}
-
   {% include header.html %}
 
   <!-- begin content -->
@@ -17,7 +13,7 @@
   </main>
   <!-- end content -->
 
-  <div class="top ion ion-ios-arrow-up" title="Top"></div>
+  <div class="top" title="Top"><ion-icon name="chevron-up"></ion-icon></div>
 
   {% include search.html %}
 

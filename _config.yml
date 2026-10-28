@@ -8,7 +8,6 @@ permalink: /blog/:title
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll/tagging
   - jekyll-seo-tag
 
 paginate: 5
@@ -33,16 +32,12 @@ include:
 
 exclude:
   - CLAUDE.md
+  - README.md
 
 collections:
   projects:
     output: false
 
-
-# Tags
-tag_page_dir:         tag
-tag_page_layout:      tag_page
-tag_permalink_style:  pretty
 
 sass:
   sass_dir: _sass

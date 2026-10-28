@@ -2,7 +2,7 @@
 layout: post
 title:  Modifying the SwitchBot Curtain 3 to support a niche curtain track
 date:   2025-10-16 10:00:00 +0200
-image:  images/rails/rails.jpg
+image:  /images/rails/rails.jpg
 tags:
   - Home Automation
   - IoT

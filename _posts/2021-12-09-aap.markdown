@@ -2,7 +2,7 @@
 layout: post
 title:  Het Advanced Analytics Platform van de Politie
 date:   2021-12-08 13:00:00 +0100
-image:  images/aap.png
+image:  /images/aap.png
 tags:
   - Kubernetes
   - Platform

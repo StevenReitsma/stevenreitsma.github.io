@@ -1,3 +1,6 @@
+@use '../0-settings/variables' as *;
+@use '../0-settings/mixins' as *;
+
 .article {
   margin-bottom: 40px;
 
@@ -71,8 +74,10 @@
       align-items: center;
 
       .read-more {
+        flex-shrink: 0;
         margin-left: auto;
         padding-bottom: 5px;
+        white-space: nowrap;
         font-size: 12px;
         line-height: 18px;
         letter-spacing: 1px;

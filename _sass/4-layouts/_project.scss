@@ -1,33 +1,12 @@
+@use '../0-settings/variables' as *;
+@use '../0-settings/mixins' as *;
+
 .project {
   margin-top: 50px;
   margin-bottom: 50px;
 
-  .project__wrapper {
-    display: flex;
-    align-items: center;
-  }
-
-  .project__image {
-    width: 50%;
-    display: block;
-    background-position: left;
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    &:after {
-      content: "";
-      display: table;
-      width: 100%;
-      padding-bottom: 70%;
-    }
-  }
-
   .project__content {
-    width: 100%;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 10px;
-    z-index: 1;
+    padding: 0 50px 25px;
     border-radius: 3px;
     background: rgba(255, 255, 255, 0.98);
     box-shadow: 0 1px 4px rgba(0,0,0,0.15);
@@ -40,15 +19,19 @@
     }
 
     .project__title {
-      margin-bottom: 0px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 0;
+      padding: 30px 0 15px;
       font-size: 26px;
-      
-      a {
-        color: $dark;
-        &:hover {
-          color: $black;
-        }
-      }
+      line-height: 1.25;
+    }
+
+    .project__logo {
+      flex-shrink: 0;
+      width: 50px;
+      margin: 0;
     }
 
     .project__excerpt {
@@ -62,61 +45,45 @@
       line-height: 18px;
       text-transform: uppercase;
       color: $gray;
+      overflow-wrap: anywhere;
     }
 
     .project__footer {
       display: flex;
       align-items: center;
-
-      .read-more {
-        margin-left: auto;
-        padding-bottom: 5px;
-        font-size: 12px;
-        line-height: 18px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        border-bottom: 1px solid transparent;
-        color: $gray;
-        &:hover {
-          color: $dark;
-          border-color: $brand-color;
-        }
-      }
     }
-  }
-
-  .project-without-image {
-    width: 100%;
-    margin-left: auto;
   }
 
   @media only screen and (max-width: $tablet) {
-    .project__wrapper {
-      flex-direction: column;
-    }
-
-    .project__image {
-      width: 100%;
-    }
+    margin-top: 30px;
+    margin-bottom: 30px;
 
     .project__content {
-      width: 90%;
-      padding: 20px;
-      margin: -10% 0 0 0;
-    }
-
-    .project-without-image {
-      width: 90%;
-      margin: 0;
-    }
-  }
-
-  @media only screen and (max-width: $mobile) {
-    .project__content {
+      padding: 0 20px 15px;
 
       .project__title {
-        font-size: 27px;
+        gap: 12px;
+        padding-top: 20px;
+        font-size: 22px;
+      }
+
+      .project__logo {
+        width: 40px;
       }
     }
+  }
+}
+
+// Cards in a grid row stretch to the height of the tallest card in that row
+.project-grid > .col {
+  display: flex;
+
+  .project {
+    display: flex;
+    flex: 1;
+  }
+
+  .project__content {
+    flex: 1;
   }
 }

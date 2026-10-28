@@ -1,8 +1,8 @@
 <div class="project">
       <div class="project__content">
-        <h2 class="project__title" style="">
-          <img src="{{site.baseurl}}/images/{{project.image}}" style="width: 50px; padding-right: 10px;">
-          {{ project.name }}
+        <h2 class="project__title">
+          <img class="project__logo" src="{{site.baseurl}}/images/{{project.image}}" alt="">
+          <span>{{ project.name }}</span>
         </h2>
 
         <div class="project__footer">
@@ -22,7 +22,7 @@
         <p class="project__excerpt">{{ project.content }}</p>
         
         {% if project.tech.size >= 1 %}
-        <div class="project-tags" style="padding-bottom: 15px">
+        <div class="project-tags">
             <div class="project-tags__box">
               {% for tech in project.tech %}
                 <a class="project__tag">{{ tech }}</a>

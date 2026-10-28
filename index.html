@@ -22,4 +22,6 @@ layout: default
 	{% endif %}
 	</div>
 </div>
+{% if paginator.total_pages > 1 %}
 {% include pagination.html %}
+{% endif %}

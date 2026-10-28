@@ -1,3 +1,6 @@
+@use '../0-settings/variables' as *;
+@use '../0-settings/mixins' as *;
+
 .footer {
   position: relative;
   padding: 80px 0 40px;
